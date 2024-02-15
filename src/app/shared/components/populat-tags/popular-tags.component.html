@@ -1,0 +1,14 @@
+@if(data$ | async; as data) {
+<loading *ngIf="data.isLoading"></loading>
+<error-message *ngIf="data.error" [message]="data.error"></error-message>
+<div class="sidebar" *ngIf="data.popularTags">
+  <p>Popular tags</p>
+  <div class="tag-list">
+    @for(popularTag of data.popularTags; track popularTag) {
+    <a [routerLink]="['/', 'tags', popularTag]" class="tag-default tag-pill">{{
+      popularTag
+    }}</a>
+    }
+  </div>
+</div>
+}

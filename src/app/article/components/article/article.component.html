@@ -1,0 +1,48 @@
+@if(data$ | async; as data) {
+<div class="article-page">
+  <div class="banner">
+    @if(data.article) {
+    <div class="container">
+      <h1>{{ data.article.title }}</h1>
+      <div class="article-meta">
+        <a [routerLink]="['/profiles', data.article.author.username]">
+          <img [src]="data.article.author.image" alt="" />
+        </a>
+      </div>
+      <div class="info">
+        <a [routerLink]="['/profiles', data.article.author.username]">
+          {{ data.article.author.username }}
+        </a>
+        <span class="data">{{ data.article.createdAt }}</span>
+      </div>
+      @if(data.isAuthor) {
+      <a
+        [routerLink]="['/articles', data.article.slug, 'edit']"
+        class="btn btn-outline-secondary btn-sm"
+      >
+        <i class="ion-edit"></i>
+        <span>Edit article</span>
+      </a>
+      <button class="btn btn-outline-danger btn-sm" (click)="deleteArticle()">
+        Delete Article
+      </button>
+      }
+    </div>
+    }
+  </div>
+  <div class="container page">
+    @if(data.isLoading) {
+    <loading></loading>
+    } @if(data.isError) {
+    <error-message></error-message>
+    } @if(data.article; as article) {
+    <div class="row article-content">
+      <div class="col-xs-12">
+        <p>{{ article.body }}</p>
+        <tag-list [tags]="article.tagList"></tag-list>
+      </div>
+    </div>
+    }
+  </div>
+</div>
+}

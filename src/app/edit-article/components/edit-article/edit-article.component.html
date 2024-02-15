@@ -1,0 +1,14 @@
+@if(data$ | async; as data) {
+  @if(data.isLoading) {
+    <loading></loading>
+  }
+  @if(data.initialValues) {
+    <article-form
+    [initialValues]="data.initialValues"
+    [isSubmitting]="data.isSubmitting"
+    [errors]="data.backendErrors"
+    (articleSubmit)="onSubmit($event)"
+  ></article-form>
+  }
+
+}
